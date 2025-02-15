@@ -1,6 +1,6 @@
 # Streamlit
 streamlit
-
+streamlit-lottie
 # API
 fastapi
 pydantic
