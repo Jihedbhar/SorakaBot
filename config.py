@@ -1,0 +1,6 @@
+PROJECT_ID = "projet-gcp-450616"
+INSTANCE = "soraka-instance"
+REGION = "europe-west1"
+DATABASE = "health_db"
+DB_USER = "postgres"
+TABLE_NAME = "medical_qa"

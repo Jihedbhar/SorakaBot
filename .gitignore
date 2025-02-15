@@ -1,0 +1,31 @@
+# Environnement et secrets
+.env
+*.env
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environnement virtuel
+Soraka/
+venv/
+ENV/
+
+# Fichiers locaux
+downloaded_files/
+desktop.ini
+cloud-sql-proxy.exe
+
+
+# Assets locaux
+assets/
+
+
+# IDE settings
+.vscode/
+.idea/
+
+# Système
+.DS_Store
