@@ -51,14 +51,39 @@ async def answer(user_input: UserInput):
         if results:
             doc, score = results[0]
             
-            if score < 0.2:  # Bonne correspondance - utiliser la base de données
+            if score < 0.2:  # Bonne correspondance
+                # D'abord obtenir une réponse ciblée de Gemini
+                llm = get_llm(user_input.temperature)
+                prompt = ChatPromptTemplate.from_messages([
+                    (
+                        "system",
+                        """Tu es SorakaBot, un assistant médical virtuel spécialisé.
+                        Voici une réponse de référence : {reference_answer}
+                        
+                        Utilise cette information pour répondre de manière précise à la question suivante en {language}.
+                        Sois concis et direct dans ta réponse.
+                        
+                        Question: {question}"""
+                    ),
+                    ("human", "{question}")
+                ])
+                
+                chain = prompt | llm
+                llm_response = chain.invoke({
+                    "language": user_input.language,
+                    "question": user_input.question,
+                    "reference_answer": doc.metadata['answer']
+                })
+                
                 return {
-                    "message": f"""J'ai trouvé une correspondance exacte à votre question (score de similarité : {score:.4f})
-                    
-Réponse : {doc.metadata['answer']}
+                    "message": f"""Réponse: {llm_response.content}
+
+Pour plus de détails :
+{doc.metadata['answer']}
 
 Source : {doc.metadata['source']}
-Domaine médical : {doc.metadata['focus_area']}""",
+Domaine médical : {doc.metadata['focus_area']}
+Score de similarité : {score:.4f}""",
                     "metadata": {
                         "source": doc.metadata['source'],
                         "focus_area": doc.metadata['focus_area'],
