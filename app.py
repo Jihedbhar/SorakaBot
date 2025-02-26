@@ -7,6 +7,9 @@ import json
 # Configuration de base
 HOST = "http://127.0.0.1:8181"
 
+if "session_id" not in st.session_state:
+    st.session_state.session_id = ""
+
 # Fonction pour charger l'animation Lottie
 def load_lottie_url(url: str):
     try:
@@ -191,13 +194,17 @@ elif st.session_state.page == 'chat':
                         "question": question,
                         "temperature": temperature,
                         "language": language,
+                        "session_id": st.session_state.session_id,
                         "previous_context": st.session_state["messages"]
                     },
                     timeout=30
                 )
                 
                 if response.status_code == 200:
+                    response_data = response.json()
                     answer = response.json().get("message", "Désolé, je n'ai pas pu traiter votre demande.")
+                    if "session_id" in response_data:
+                        st.session_state.session_id = response_data["session_id"]
                     st.session_state["messages"].append({"role": "assistant", "content": answer})
                     st.chat_message("assistant", avatar="🏥").write(answer)
                 else:
