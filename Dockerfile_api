@@ -1,0 +1,16 @@
+FROM python:3.12
+
+WORKDIR /app
+
+# Copier les fichiers de dépendances et les installer
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le reste du code
+COPY . .
+
+# Définir les variables d'environnement
+ENV PORT=8181
+
+# Commande pour démarrer l'application
+CMD exec uvicorn api:app --host 0.0.0.0 --port ${PORT}
