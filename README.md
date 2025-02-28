@@ -99,9 +99,9 @@ graph TD
 
 Les performances du système ont été évaluées selon plusieurs métriques :
 
-- Pertinence moyenne : 0.7297
+- Pertinence moyenne : 0.7376
 
-- Temps de réponse moyen : 0.1036 seconde
+- Temps de réponse moyen : 2.8 secondes
 
 - Taux de récupération DB : Mesure la qualité de la récupération d'information
 
