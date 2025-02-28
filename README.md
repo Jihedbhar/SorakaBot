@@ -3,17 +3,46 @@
 ## Description
 SorakaBot est un assistant médical virtuel intelligent basé sur un système RAG (Retrieval-Augmented Generation). Il combine une base de connaissances médicales structurée avec les capacités de génération de texte du modèle Gemini pour fournir des réponses précises et contextualisées aux questions médicales.
 
-## Architecture
-Le projet est divisé en deux parties principales :
+## Architecture du Projet
 
-- **API Backend (FastAPI)** : Gère la logique de recherche et génération des réponses
-- **Interface Utilisateur (Streamlit)** : Fournit une interface conviviale pour interagir avec l'assistant
+| Composant | Rôle |
+|-----------|------|
+| **Google Cloud Storage** | Stockage des données brutes et des modèles |
+| **PostgreSQL + PGVector** | Base de données avec capacités vectorielles pour la recherche sémantique |
+| **FastAPI** | Backend API RESTful pour servir les données et les prédictions |
+| **LangChain RAG** | Framework de Retrieval Augmented Generation pour l'analyse contextuelle |
+| **Vertex AI** | Plateforme ML pour l'entraînement et l'inférence des modèles |
+| **Streamlit** | Interface utilisateur interactive pour explorer les analyses |
 
-## Composants principaux
-- Base de données vectorielle PostgreSQL avec **pgvector** sur Google Cloud SQL
-- Embeddings générés via **VertexAI textembedding-gecko**
-- Modèle de langage **Gemini 1.5 Pro** pour la génération de texte
-- Dataset **MedQuAD** (Medical Question-Answering Dataset) comme base de connaissances
+Les composants sont connectés comme suit :
+- Cloud Storage alimente PostgreSQL avec les données
+- FastAPI communique avec LangChain et PostgreSQL
+- Vertex AI fournit les capacités d'IA
+- Streamlit propose une interface utilisateur connectée à FastAPI
+
+
+
+```mermaid
+graph TD
+    GCS[Google Cloud Storage] --> PG[PostgreSQL + Vector]
+    GCS --> LC[LangChain RAG]
+    
+    PG <--> API[FastAPI]
+    LC <--> API
+    VA[Vertex AI] <--> API
+    
+    API <--> ST[Streamlit Interface]
+    
+    classDef storage fill:#f9f,stroke:#333,stroke-width:2px,color:black;
+    classDef processing fill:#bbf,stroke:#333,stroke-width:2px,color:black;
+    classDef interface fill:#bfb,stroke:#333,stroke-width:2px,color:black;
+    
+    class GCS,PG storage;
+    class LC,VA processing;
+    class API,ST interface;
+```
+
+
 
 ## Fonctionnalités
 - 🔍 Recherche sémantique dans une base de données médicale
@@ -117,6 +146,7 @@ Ce projet est sous licence MIT.
 ## Contact
 
 Pour toute question ou suggestion, veuillez me contacter à bharjihed@gmail.com 
+
 
 
 
