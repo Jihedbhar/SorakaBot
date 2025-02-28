@@ -1,7 +1,7 @@
 # Environnement et secrets
 .env
 *.env
-
+env.yaml 
 # Cache Python
 __pycache__/
 *.pyc

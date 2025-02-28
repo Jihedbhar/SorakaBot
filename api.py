@@ -38,9 +38,21 @@ def get_llm(temperature: float = 0.3):
 
 
 # Initialisation des connexions aux services
-engine = create_cloud_sql_database_connection()
-embedding = get_embeddings()
-vector_store = get_vector_store(engine, TABLE_NAME, embedding)
+engine = None
+embedding = None
+vector_store = None
+
+def ensure_services_initialized():
+    global engine, embedding, vector_store
+    if vector_store is None:
+        try:
+            engine = create_cloud_sql_database_connection()
+            embedding = get_embeddings()
+            vector_store = get_vector_store(engine, TABLE_NAME, embedding)
+        except Exception as e:
+            print(f"Erreur d'initialisation des services: {str(e)}")
+            raise
+
 
 @app.get("/")
 async def root():
@@ -49,6 +61,7 @@ async def root():
 @app.post("/answer")
 async def answer(user_input: UserInput):
     try:
+        ensure_services_initialized()
         # Gérer l'ID de session
         if not user_input.session_id:
             user_input.session_id = str(uuid4())

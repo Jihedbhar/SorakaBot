@@ -5,7 +5,8 @@ from streamlit_lottie import st_lottie
 import json
 
 # Configuration de base
-HOST = "http://127.0.0.1:8181"
+#HOST = "http://127.0.0.1:8181"
+HOST = "https://mjb-api-217448161611.europe-west1.run.app"
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = ""
