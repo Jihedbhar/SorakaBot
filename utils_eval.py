@@ -29,7 +29,7 @@ def was_answer_found_in_db(chatbot_response):
     """
     if not chatbot_response:
         return False
-    return chatbot_response.get('type') == 'database_match'
+    return chatbot_response.get('type') == 'combined_response' or bool(chatbot_response.get('db_answer'))
 
 def measure_response_time(get_response_function, question):
     """
