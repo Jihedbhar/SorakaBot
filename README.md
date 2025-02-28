@@ -86,19 +86,20 @@ Les performances du système ont été évaluées selon plusieurs métriques :
 
 ## Structure du projet
 
+```plaintext
 sorakabot/
-├── api.py                  # API FastAPI
-├── app.py                  # Interface Streamlit
-├── ingest.py               # Gestion de l'ingestion des données
-├── retrieve.py             # Fonctions de récupération des données
-├── utils_eval.py           # Outils d'évaluation du système
-├── eval.py                 # Script d'évaluation
-├── config.py               # Configuration du projet
-├── requirements.txt        # Dépendances Python
-├── Dockerfile_api          # Dockerfile pour l'API
-├── Dockerfile_streamlit    # Dockerfile pour l'interface
-└── downloaded_files/       # Fichiers téléchargés
-
+- api.py                # API FastAPI pour la gestion des requêtes backend
+- app.py                # Interface utilisateur Streamlit
+- ingest.py             # Script pour l'ingestion des données dans la base
+- retrieve.py           # Fonctions de récupération des données
+- utils_eval.py         # Outils utilitaires pour l'évaluation du système
+- eval.py               # Script principal d'évaluation des performances
+- config.py             # Fichier de configuration du projet
+- requirements.txt      # Liste des dépendances Python nécessaires
+- Dockerfile_api        # Dockerfile pour conteneuriser l'API FastAPI
+- Dockerfile_streamlit  # Dockerfile pour conteneuriser l'interface Streamlit
+- downloaded_files/     # Répertoire pour les fichiers téléchargés
+```
 
 ## Considérations éthiques
 
