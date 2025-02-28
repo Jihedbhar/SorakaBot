@@ -46,16 +46,18 @@ Le projet est divisé en deux parties principales :
     pip install -r requirements.txt
 
 4. Configurer les variables d'environnements : 
+    ```bash
     # .env
     API_KEY=votre_clé_api_gemini
     DB_PASSWORD=votre_mot_de_passe_db
 
-5. Télécharger et lancer le proxy Cloud SQL :
-    # Dans un terminal
+6. Télécharger et lancer le proxy Cloud SQL :
     ```bash
+    # Dans un terminal
+    
     ./cloud-sql-proxy.exe projet-gcp-450616:europe-west1:soraka-instance
 
-6. Lancer l'API et l'interface utilisateur :
+8. Lancer l'API et l'interface utilisateur :
     ```bash
     # Dans un terminal
     python api.py
