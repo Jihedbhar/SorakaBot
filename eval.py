@@ -100,10 +100,14 @@ def main():
         true_answer = row['answer']
         
         # Obtenir la réponse du chatbot
-        chatbot_response = get_chatbot_response(question)
+        response_time, chatbot_response = measure_response_time(get_chatbot_response,question)
         
         # Évaluer la réponse
-        metrics = evaluate_response(question, true_answer, chatbot_response)
+        metrics = {
+        "relevance_score": calculate_relevance(chatbot_response, true_answer),
+        "retrieval_success": was_answer_found_in_db(chatbot_response),
+        "response_time": response_time
+    }
         
         results.append({
             "question": question,

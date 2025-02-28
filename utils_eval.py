@@ -31,13 +31,17 @@ def was_answer_found_in_db(chatbot_response):
         return False
     return chatbot_response.get('type') == 'database_match'
 
-def measure_response_time():
+def measure_response_time(get_response_function, question):
     """
     Mesure le temps de réponse du chatbot
+    
+    Args:
+        get_response_function: La fonction qui génère la réponse
+        question: La question posée
     """
     start_time = time.time()
-    time.sleep(0.1)  # Simuler un délai de réponse
-    return time.time() - start_time
+    response = get_response_function(question)
+    return time.time() - start_time, response
 
 def display_evaluation_results(results):
     """
@@ -65,3 +69,11 @@ def display_evaluation_results(results):
         print(f"Type de réponse: {result['chatbot_response'].get('type', 'unknown')}")
         print(f"Score de similarité: {result['chatbot_response'].get('score', 'N/A')}")
         print(f"Pertinence: {result['relevance_score']:.4f}")
+
+        gcloud run deploy sorakabot \
+    --image=europe-west1-docker.pkg.dev/projet-gcp-450616/sorakabot-repo/mjb-api:latest \
+    --platform=managed \
+    --region=europe-west1 \
+    --allow-unauthenticated \
+    --set-env-vars GOOGLE_API_KEY="AIzaSyA0BJ-l4g5TYK-Gd0fvK6lJMUIroDsr1rI",DB_PASSWORD="C+B[Q&<07bheSc,n" \ 
+    --port 8181
